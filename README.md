@@ -5,16 +5,19 @@
     <?php
 
     $client = new SoapClient('http://yourmagentohost/api/?wsdl', array("trace" => 1));
-    // If soap isn't default use this link instead
-    // http://yourmagentohost/api/soap/?wsdl
-
-    // If somestuff requires api authentification,
-    // we should get session token
     $session = $client->login('username', 'password');
+    
+    // Set the <ParentCouponID> to your parent coupon's ID.
     $pId = <ParentCouponID>;
+    
+    // Make a SOAP call to the service, passing in options as an array.  Change the obvious values in between the <>
     $id = $client->call($session, 'coupongenerator.clonerule', array($pId, '<NEWCOUPONNAME>', '<NEWCOUPONCODE>', '<EXPIREDATE>'));
+    
+    // Retrieve your new coupon and print out the object that you are returned.  (This should just be a single array().)
     $result = $client->call($session, 'coupongenerator.info', $id);
     print_r($result);
+    
+    // Close the session now that we are done.
     $client->endSession($session);
     ?>
   
