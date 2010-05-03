@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <modules>
+    <Needle_CouponGenerator>
+      <version>0.1.0</version>
+    </Needle_CouponGenerator>
+  </modules>
+  <global>
+    <models>
+      <coupongenerator>
+        <class>Needle_CouponGenerator_Model</class>
+      </coupongenerator>
+    </models>
+    <helpers>
+      <coupongenerator>
+        <class>Needle_CouponGenerator_Helper</class>
+      </coupongenerator>
+    </helpers>
+  </global>
+</config>

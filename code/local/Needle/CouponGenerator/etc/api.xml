@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <coupongenerator translate="title" module="coupongenerator">
+                <model>coupongenerator/api</model>
+                <title>Needle SalesRule Api</title>
+                <acl>coupongenerator</acl>
+                <methods>
+                    <list translate="title" module="coupongenerator">
+                        <title>Retrieve SalesRules</title>
+                        <method>items</method>
+                        <acl>coupongenerator/info</acl>
+                    </list>
+                    <delete translate="title" module="coupongenerator">
+                      <title>Delete SalesRule</title>
+                      <method>delete</method>
+                      <acl>coupongenerator/delete</acl>
+                    </delete>
+                    <info translate="title" module="coupongenerator">
+                      <title>Show SalesRule</title>
+                      <method>info</method>
+                      <acl>coupongenerator/info</acl>
+                    </info>
+                    <clonerule translate="title" module="coupongenerator">
+                      <title>Clone a SalesRule</title>
+                      <method>cloneRule</method>
+                      <acl>coupongenerator/clonerule</acl>
+                    </clonerule>                    
+                </methods>
+                <faults module="coupongenerator">
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>The source rule does not exist.</message>
+                    </not_exists>                    
+                    <no_uses_left>
+                        <code>103</code>
+                        <message>There are no uses left on the source rule.</message>
+                    </no_uses_left>  
+                    <data_invalid>
+                        <code>104</code>
+                        <message>Something went horribly wrong while saving the data.</message>
+                    </data_invalid>       
+                    <not_deleted>
+                        <code>105</code>
+                        <message>Something went horribly wrong while deleting the sales rule.</message>
+                    </not_deleted>                               
+                </faults>
+            </coupongenerator>
+        </resources>
+        <acl>
+            <resources>
+                <coupongenerator translate="title" module="coupongenerator">
+                     <title>SalesRules</title>
+                     <sort_order>3</sort_order>
+                     <info translate="title" module="coupongenerator">
+                        <title>Retrieve SalesRules info</title>
+                     </info>
+                     <delete translate="title" module="coupongenerator">
+                        <title>Delete SalesRule</title>
+                     </delete>
+                     <clonerule translate="title" module="coupongenerator">
+                        <title>Clone SalesRule</title>
+                     </clonerule>
+                </coupongenerator>
+            </resources>
+        </acl>
+    </api>
+</config>
