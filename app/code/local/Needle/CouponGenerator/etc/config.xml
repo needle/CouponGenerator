@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Needle_CouponGenerator>
+            <version>0.1.0</version>
+        </Needle_CouponGenerator>
+    </modules>
+    <global>
+        <blocks>
+            <coupongenerator>
+                <class>Needle_CouponGenerator_Block</class>
+            </coupongenerator>
+        </blocks>
+        <models>
+            <coupongenerator>
+                <class>Needle_CouponGenerator_Model</class>
+            </coupongenerator>
+        </models>
+        <helpers>
+            <coupongenerator>
+                <class>Needle_CouponGenerator_Helper</class>
+            </coupongenerator>
+        </helpers>
+    </global>
+    <adminhtml>
+        <menu>
+            <promo>
+                <children>
+                    <coupongenerator translate="title" module="coupongenerator">
+                        <title>Coupon Generator</title>
+                        <sort_order>100</sort_order>
+                        <action>coupongenerator/admin</action>
+                    </coupongenerator>
+                </children>
+            </promo>
+        </menu>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <Needle_CouponGenerator>
+                <use>standard</use>
+                <args>
+                    <module>Needle_CouponGenerator</module>
+                    <frontName>coupongenerator</frontName>
+                </args>
+            </Needle_CouponGenerator>
+        </routers>
+    </frontend>
+</config>
