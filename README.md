@@ -1,5 +1,5 @@
 # Name
-**CouponGenerator** - Create and manage single-use coupons for Magento stores.
+**CouponGenerator** - Create and manage single-use coupons for Magento stores.!
 
 # Usage
     <?php
