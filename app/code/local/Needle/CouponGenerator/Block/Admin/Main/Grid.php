@@ -99,8 +99,8 @@ class Needle_CouponGenerator_Block_Admin_Main_Grid extends Mage_Adminhtml_Block_
  
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array(
-            'id' => $row->getTipId(),
+        return $this->getUrl('adminhtml/promo_quote/edit', array(
+            'id' => $row->getRuleId(),
         ));
     }
 }
