@@ -58,7 +58,7 @@ class Needle_CouponGenerator_AdminController extends Mage_Adminhtml_Controller_A
 			 
 			try 
 			{
-				for ($i = 0; $i <= $numCoupons; $i++)
+				for ($i = 0; $i < $numCoupons; $i++)
 				{
 					$newName = $namePrefix . ":" . substr($parentName, 10);
 					$couponCode = $couponPrefix . "-" . $this->randomString($strLen);
