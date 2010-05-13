@@ -69,10 +69,9 @@ class Needle_CouponGenerator_Block_Admin_New_Form extends Mage_Adminhtml_Block_W
             'name'      => 'expires',
             'title'     => Mage::helper('coupongenerator')->__('Expires'),
             'label'     => Mage::helper('coupongenerator')->__('Expires'),
+            'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'    => $dateFormatIso,
-#            'time'      => false,
-            'image'     => $this->getSkinUrl('images/grid-cal.gif'),
-#            'required'  => false,
+            'image'     => $this->getSkinUrl('images/grid-cal.gif')
         ));
 
         $form->setMethod('post');

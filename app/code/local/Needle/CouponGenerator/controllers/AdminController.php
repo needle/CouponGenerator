@@ -51,11 +51,13 @@ class Needle_CouponGenerator_AdminController extends Mage_Adminhtml_Controller_A
 		if ($data = $this->getRequest()->getPost()) 
 		{
 			$api = Mage::getModel('coupongenerator/api');
+			$data = $this->_filterDates($data, array('expires'));
+			
 			$numCoupons		= $this->getRequest()->getPost('quantity');
 			$sourceRuleID	= $this->getRequest()->getPost('rule_id');
 			$couponPrefix	= $this->getRequest()->getPost('prefix');
 			$namePrefix		= $this->getRequest()->getPost('name_prefix');
-			$expireDate		= $this->getRequest()->getPost('expires');		
+			$expireDate		= $data['expires'];
 			$strLen			= $this->getRequest()->getPost('rand_len'); 
 			$parentRule		= $api->info($sourceRuleID);
 			$parentName		= $parentRule['name'];
