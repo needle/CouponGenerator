@@ -49,6 +49,7 @@ class Needle_CouponGenerator_Block_Admin_New_Form extends Mage_Adminhtml_Block_W
             'title'     => Mage::helper('coupongenerator')->__('Quantity'),
             'label'     => Mage::helper('coupongenerator')->__('Quantity'),
             'maxlength' => '50',
+			'class' => 'input-text required-entry validate-digits',            
             'required'  => true,
         ));
         
