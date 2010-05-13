@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <coupongenerator_admin_new>
+        <reference name="head">
+            <block type="coupongenerator/admin_new" name="coupongenerator_admin_new"/>
+        </reference>
+    </coupongenerator_admin_new>
+</layout>

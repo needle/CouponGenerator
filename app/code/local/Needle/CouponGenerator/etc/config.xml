@@ -34,16 +34,23 @@
                 </children>
             </promo>
         </menu>
+        <layout>
+            <updates>
+                <coupongenerator>
+                    <file>coupongenerator.xml</file>
+                </coupongenerator>
+            </updates>
+        </layout>
     </adminhtml>
-    <frontend>
+    <admin>
         <routers>
-            <Needle_CouponGenerator>
-                <use>standard</use>
+            <coupongenerator>
+                <use>admin</use>
                 <args>
                     <module>Needle_CouponGenerator</module>
                     <frontName>coupongenerator</frontName>
                 </args>
-            </Needle_CouponGenerator>
+            </coupongenerator>
         </routers>
-    </frontend>
+    </admin>    
 </config>

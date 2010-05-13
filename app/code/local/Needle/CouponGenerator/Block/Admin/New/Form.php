@@ -56,18 +56,23 @@ class Needle_CouponGenerator_Block_Admin_New_Form extends Mage_Adminhtml_Block_W
             'name'      => 'rand_len',
             'title'     => Mage::helper('coupongenerator')->__('Random String Length'),
             'label'     => Mage::helper('coupongenerator')->__('Random String Length'),
-            'maxlength' => '5',
+            'maxlength' => '2',
+			'class' => 'input-text required-entry validate-rand_len',
             'required'  => true,
         ));
+
+	    $dateFormatIso = Mage::app()->getLocale()->getDateFormat(
+	        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+	    );
         
         $fieldset->addField('expires', 'date', array(
             'name'      => 'expires',
             'title'     => Mage::helper('coupongenerator')->__('Expires'),
             'label'     => Mage::helper('coupongenerator')->__('Expires'),
-            'format'    => 'M/d/yyyy',
-            'time'      => false,
+            'format'    => $dateFormatIso,
+#            'time'      => false,
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
-            'required'  => true,
+#            'required'  => false,
         ));
 
         $form->setMethod('post');

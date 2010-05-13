@@ -16,4 +16,10 @@ class Needle_CouponGenerator_Block_Admin_New extends Mage_Adminhtml_Block_Widget
     {
         return Mage::helper('coupongenerator')->__('Generate New Bulk Coupon');
     }
+    
+    public function _prepareLayout()
+    {
+        $this->getLayout()->getBlock('head')->addJs('needle/needle.js');   
+        return parent::_prepareLayout();
+    }
 }

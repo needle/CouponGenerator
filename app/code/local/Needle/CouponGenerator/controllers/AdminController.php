@@ -37,9 +37,13 @@ class Needle_CouponGenerator_AdminController extends Mage_Adminhtml_Controller_A
 	
 	public function newAction()
 	{
-		$this->loadLayout()
-		->_addContent($this->getLayout()->createBlock('coupongenerator/admin_new'))
-		->renderLayout();
+        // $this->loadLayout()
+        // ->_addContent($this->getLayout()->createBlock('coupongenerator/admin_new'))
+        // ->renderLayout();
+        
+        $this->loadLayout();
+        $this->_addContent($this->getLayout()->createBlock('coupongenerator/admin_new'));
+        $this->renderLayout();
 	}
 	
 	public function postAction()

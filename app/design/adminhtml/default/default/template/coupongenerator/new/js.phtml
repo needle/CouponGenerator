@@ -1,0 +1,12 @@
+<script type="text/javascript">
+var dataForm = new VarienForm('edit_form');
+Validation.addAllThese(
+[
+   ['validate-rand_len', '<?php echo $this->__('String length must be between 3 and 10.') ?>', {
+       min : 3,
+       max : 10,
+       include : ['validate-digits']
+    }]
+]
+);
+</script>
