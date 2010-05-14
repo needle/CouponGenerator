@@ -41,3 +41,11 @@ Since the CouponGenerator uses already existing coupons from which to clone new 
 ## Caveats
 * The cloned coupon code must be unique.
 * The new coupon name does not need to be unique, but it should be something that does not clutter the store and can be sorted out of the list of results.  A good example format is **__ONEUSE:Coupon Name**.  This will cause the cloned coupons to be listed at the very end of the coupon list when sorted by name.
+
+## Packaging
+Packaging this application for distribution is relatively simple:
+	cd CouponGenerator
+	tar cvzf app js CouponGenerator-<version_number>.tgz
+
+## Installation
+Copy the CouponGenerator-<version_number>.tgz to the customer's Magento installation root and extract.  Simple as that!
