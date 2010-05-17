@@ -68,7 +68,7 @@ class Needle_CouponGenerator_AdminController extends Mage_Adminhtml_Controller_A
 				{
 					$newName = $namePrefix . ":" . substr($parentName, 10);
 					$couponCode = $couponPrefix . "-" . $this->randomString($strLen);
-					$api->cloneRule($sourceRuleID, $newName, $couponCode, $expireDate);
+					Mage::helper('coupongenerator')->cloneRule($sourceRuleID, $newName, $couponCode, $expireDate);
 				}
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('coupongenerator')
 					->__('Coupons were generated successfully!'));

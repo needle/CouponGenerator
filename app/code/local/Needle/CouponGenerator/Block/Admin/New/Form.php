@@ -7,7 +7,7 @@ class Needle_CouponGenerator_Block_Admin_New_Form extends Mage_Adminhtml_Block_W
         
         $model = Mage::getModel('salesrule/rule');
         $templates = $model->getCollection();
-        $templates->addFieldToFilter('uses_per_coupon', array('gt' => 0));
+        // $templates->addFieldToFilter('uses_per_coupon', array('gt' => 0));
         $templates->addFieldToFilter('name', array('like' => '_TEMPLATE:%'));
 
         $ruleKV = array();
