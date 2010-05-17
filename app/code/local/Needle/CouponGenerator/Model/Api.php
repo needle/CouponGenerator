@@ -99,10 +99,10 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
          /** Do some stuff to the original parent now that we have set the 
           * attributes on the child.
           * * Decrement uses_per_coupon
-          * * Increment times_used
+          * * Increment uses_per_customer
          */
          $parentruleData['uses_per_coupon']--;
-         $parentruleData['times_used']++;
+         $parentruleData['uses_per_customer']++;
          
          // Set the data before trying to save it.
          $parentrule->setData($parentruleData);
