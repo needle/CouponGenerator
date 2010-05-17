@@ -8,22 +8,22 @@
                 <acl>coupongenerator</acl>
                 <methods>
                     <list translate="title" module="coupongenerator">
-                        <title>Retrieve SalesRules</title>
+                        <title>Retrieve Coupons</title>
                         <method>items</method>
                         <acl>coupongenerator/info</acl>
                     </list>
                     <delete translate="title" module="coupongenerator">
-                      <title>Delete SalesRule</title>
+                      <title>Delete Coupons</title>
                       <method>delete</method>
                       <acl>coupongenerator/delete</acl>
                     </delete>
                     <info translate="title" module="coupongenerator">
-                      <title>Show SalesRule</title>
+                      <title>Show Coupons</title>
                       <method>info</method>
                       <acl>coupongenerator/info</acl>
                     </info>
                     <clonerule translate="title" module="coupongenerator">
-                      <title>Clone a SalesRule</title>
+                      <title>Clone a Coupons</title>
                       <method>cloneRule</method>
                       <acl>coupongenerator/clonerule</acl>
                     </clonerule>                    
@@ -55,16 +55,16 @@
         <acl>
             <resources>
                 <coupongenerator translate="title" module="coupongenerator">
-                     <title>SalesRules</title>
+                     <title>Needle CouponGenerator</title>
                      <sort_order>3</sort_order>
                      <info translate="title" module="coupongenerator">
-                        <title>Retrieve SalesRules info</title>
+                        <title>Retrieve Coupon (SalesRule) info</title>
                      </info>
                      <delete translate="title" module="coupongenerator">
-                        <title>Delete SalesRule</title>
+                        <title>Delete Coupon (SalesRule)</title>
                      </delete>
                      <clonerule translate="title" module="coupongenerator">
-                        <title>Clone SalesRule</title>
+                        <title>Clone Coupon (SalesRule)</title>
                      </clonerule>
                 </coupongenerator>
             </resources>
