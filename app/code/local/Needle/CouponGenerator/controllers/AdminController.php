@@ -61,6 +61,8 @@ class Needle_CouponGenerator_AdminController extends Mage_Adminhtml_Controller_A
 			$strLen			= $this->getRequest()->getPost('rand_len'); 
 			$parentRule		= $api->info($sourceRuleID);
 			$parentName		= $parentRule['name'];
+			
+			Mage::log('Expire date: '.$expireDate);
 			 
 			try 
 			{

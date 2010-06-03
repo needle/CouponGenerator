@@ -37,7 +37,10 @@ class Needle_CouponGenerator_Helper_Data extends Mage_Core_Helper_Abstract
         $newRuleData['name'] = $newName;
         $newRuleData['coupon_code'] = $couponCode;
         if(isset($expireDate))
-            $newRuleData['to_date'] = $expireDate;
+        {
+            $newDate = Mage::app()->getLocale()->date($expireDate, Zend_Date::DATE_SHORT);
+            $newRuleData['to_date'] = $newDate->toString('YYYY-MM-dd');
+        }
         $newRuleData['uses_per_coupon'] = '1';
         $newRuleData['uses_per_customer'] = '1';
         $newRuleData['is_active'] = '1';
