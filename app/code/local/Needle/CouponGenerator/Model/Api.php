@@ -64,7 +64,9 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
          $numUsesPerCoupon = 1;
          $numUsesPerCustomer = 1;
          
-         $parentrule = Mage::getModel('salesrule/rule')->load($sourceSalesruleId);
+		 $parentrule = Mage::getModel('salesrule/rule')->load($sourceSalesruleId);
+		 $parentconditions = $parentrule->getConditions()->toArray();
+		 $parentactions = $parentrule->getActions()->toArray();
 
 
          if (!$parentrule->getId()) 
@@ -86,9 +88,20 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
          */
          $newRule = Mage::getModel('salesrule/rule');
          $newRuleData = $parentruleData;
-         unset($newRuleData['rule_id']);
+		 unset($newRuleData['rule_id']);
          $newRuleData['name'] = $newName;
-         $newRuleData['coupon_code'] = $couponCode;
+		 $newRuleData['coupon_code'] = $couponCode;
+
+		 /**
+		  * Set the new rule's actions and conditions to be the same
+		  * as the parent rule's.
+		  */
+		 $newRule->getConditions()->setConditions($parentconditions);
+		 $newRule->getActions()->setActions($parentactions);
+
+		 /**
+		  * Set the new rule's expiration date if one was provided.
+		  */
          if(isset($expireDate))
          {
              $newDate = Mage::app()->getLocale()->date($expireDate, Zend_Date::DATE_SHORT);
