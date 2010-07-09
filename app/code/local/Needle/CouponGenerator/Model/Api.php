@@ -61,55 +61,51 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
       */
      public function cloneRule($sourceSalesruleId, $newName, $couponCode, $expireDate)
      {
-         $numUsesPerCoupon = 1;
-         $numUsesPerCustomer = 1;
-         
+		 $numUsesPerCoupon = 1;
+		 $numUsesPerCustomer = 1;
+
 		 $parentrule = Mage::getModel('salesrule/rule')->load($sourceSalesruleId);
-		 $parentconditions = $parentrule->getConditions()->toArray();
-		 $parentactions = $parentrule->getActions()->toArray();
+		 if (!$parentrule->getId()) 
+		 {
+			 $this->_fault('not_exists');
+		 }
+		 $parentruleData = $parentrule->toArray();
+		 if($parentruleData['uses_per_coupon'] < 1)
+		 {
+			 $this->_fault('no_uses_left', 'Parent coupon is out of uses.');    
+			 return 0;         
+		 }   
 
+		 /**
+		  * Set up the new rule by creating a new model, setting the
+		  * $newRuleData (array) to the $parentruleData (array) values
+		  * and then overriding the attributes that we care about         
+		  */
+		 $parentconditions = $parentrule->getConditions();
+		 $parentactions = $parentrule->getActions();
 
-         if (!$parentrule->getId()) 
-         {
-             $this->_fault('not_exists');
-         }
-         $parentruleData = $parentrule->toArray();
-    
-         if($parentruleData['uses_per_coupon'] < 1)
-         {
-             $this->_fault('no_uses_left', 'Parent coupon is out of uses.');    
-             return 0;         
-         }   
-         
-         /**
-          * Set up the new rule by creating a new model, setting the
-          * $newRuleData (array) to the $parentruleData (array) values
-          * and then overriding the attributes that we care about         
-         */
-         $newRule = Mage::getModel('salesrule/rule');
-         $newRuleData = $parentruleData;
+		 $newRule = Mage::getModel('salesrule/rule');
+		 $newRuleData = $parentruleData;
 		 unset($newRuleData['rule_id']);
-         $newRuleData['name'] = $newName;
+		 $newRuleData['name'] = $newName;
 		 $newRuleData['coupon_code'] = $couponCode;
 
 		 /**
 		  * Set the new rule's actions and conditions to be the same
 		  * as the parent rule's.
 		  */
-		 $newRule->getConditions()->setConditions($parentconditions);
-		 $newRule->getActions()->setActions($parentactions);
 
 		 /**
 		  * Set the new rule's expiration date if one was provided.
 		  */
-         if(isset($expireDate))
-         {
-             $newDate = Mage::app()->getLocale()->date($expireDate, Zend_Date::DATE_SHORT);
-             $newRuleData['to_date'] = $newDate->toString('YYYY-MM-dd');
-         }
-         $newRuleData['uses_per_coupon'] = '1';
-         $newRuleData['uses_per_customer'] = '1';
-         $newRuleData['is_active'] = '1';
+		 if(isset($expireDate))
+		 {
+			 $newDate = Mage::app()->getLocale()->date($expireDate, Zend_Date::DATE_SHORT);
+			 $newRuleData['to_date'] = $newDate->toString('YYYY-MM-dd');
+		 }
+		 $newRuleData['uses_per_coupon'] = '1';
+		 $newRuleData['uses_per_customer'] = '1';
+		 $newRuleData['is_active'] = '1';
          $newRuleData['times_used'] = '0';
          
          /** Do some stuff to the original parent now that we have set the 
@@ -120,11 +116,14 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
          $parentruleData['uses_per_coupon']--;
          $parentruleData['uses_per_customer']++;
          
-         // Set the data before trying to save it.
+		 // Set the data before trying to save it.
          $parentrule->setData($parentruleData);
-         $newRule->setData($newRuleData);
-         
-         
+		 $newRule->setData($newRuleData);
+		 if (isset($parentruleData['conditions_serialized']))
+			 $newRule->getConditions()->setConditions(array())->loadArray(unserialize($parentruleData['conditions_serialized']));
+		 if (isset($parentruleData['actions_serialized']))
+			 $newRule->getActions()->setActions(array())->loadArray(unserialize($parentruleData['actions_serialized']));
+
          // Try to save the parent first
          try 
          {
