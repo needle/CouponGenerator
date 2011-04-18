@@ -46,8 +46,11 @@ class Needle_CouponGenerator_Helper_Data extends Mage_Core_Helper_Abstract
         $newRuleData['is_active'] = '1';
         $newRuleData['times_used'] = '0';
         
-        $newRule->setData($newRuleData);
-        
+		$newRule->setData($newRuleData);
+		if (isset($parentruleData['conditions_serialized']))
+			$newRule->getConditions()->setConditions(array())->loadArray(unserialize($parentruleData['conditions_serialized']));
+		if (isset($parentruleData['actions_serialized']))
+			$newRule->getActions()->setActions(array())->loadArray(unserialize($parentruleData['actions_serialized']));
         // Now try to save the child
         try 
         {

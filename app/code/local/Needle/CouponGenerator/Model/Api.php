@@ -59,9 +59,9 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
       * @param string $expireDate
       * @return int
       */
-     public function cloneRule($sourceSalesruleId, $newName, $couponCode, $expireDate)
+     public function cloneRule($sourceSalesruleId, $newName, $couponCode, $expireDate, $numUses=1)
      {
-		 $numUsesPerCoupon = 1;
+		 $numUsesPerCoupon = $numUses;
 		 $numUsesPerCustomer = 1;
 
 		 $parentrule = Mage::getModel('salesrule/rule')->load($sourceSalesruleId);
@@ -70,9 +70,9 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
 			 $this->_fault('not_exists');
 		 }
 		 $parentruleData = $parentrule->toArray();
-		 if($parentruleData['uses_per_coupon'] < 1)
+		 if($parentruleData['uses_per_coupon'] < $numUses)
 		 {
-			 $this->_fault('no_uses_left', 'Parent coupon is out of uses.');    
+			 $this->_fault('no_uses_left', 'Parent coupon does not have enough uses to generate the number of uses requested.');    
 			 return 0;         
 		 }   
 
@@ -100,10 +100,16 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
 		  */
 		 if(isset($expireDate))
 		 {
-			 $newDate = Mage::app()->getLocale()->date($expireDate, Zend_Date::DATE_SHORT);
-			 $newRuleData['to_date'] = $newDate->toString('YYYY-MM-dd');
+			 if(preg_match('/\d{4}-\d{2}-\d{2}/i', $expireDate))
+				 $newRuleData['to_date'] = $expireDate;
+			 else
+			 {
+				 $this->_fault('data_invalid', 'Date is in the wrong format!  Expects    : yyyy-mm-dd Got: ' . $expireDate);
+				 return;
+			 }
 		 }
-		 $newRuleData['uses_per_coupon'] = '1';
+
+		 $newRuleData['uses_per_coupon'] = $numUses;
 		 $newRuleData['uses_per_customer'] = '1';
 		 $newRuleData['is_active'] = '1';
          $newRuleData['times_used'] = '0';
@@ -113,8 +119,8 @@ class Needle_CouponGenerator_Model_Api extends Mage_Api_Model_Resource_Abstract
           * * Decrement uses_per_coupon
           * * Increment uses_per_customer
          */
-         $parentruleData['uses_per_coupon']--;
-         $parentruleData['uses_per_customer']++;
+         $parentruleData['uses_per_coupon'] = $parentruleData['uses_per_coupon'] + $numUses;
+         $parentruleData['uses_per_customer'] = $parentruleData['uses_per_customer'] + $numUses;
          
 		 // Set the data before trying to save it.
          $parentrule->setData($parentruleData);
